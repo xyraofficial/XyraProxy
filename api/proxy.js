@@ -1,14 +1,28 @@
-
 export const config = {
   runtime: 'edge',
 };
 
 export default async function handler(request) {
+  // Handle CORS preflight request
+  if (request.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+    });
+  }
+
   // Only allow POST requests
   if (request.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), {
       status: 405,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
     });
   }
 
@@ -19,7 +33,10 @@ export default async function handler(request) {
     if (!GEMINI_API_KEY) {
       return new Response(JSON.stringify({ error: 'API key not configured' }), {
         status: 500,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        }
       });
     }
 
@@ -52,7 +69,10 @@ export default async function handler(request) {
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
     });
   }
 }
