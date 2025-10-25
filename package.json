@@ -1,0 +1,7 @@
+
+{
+  "name": "gemini-vercel-proxy",
+  "version": "1.0.0",
+  "description": "Vercel proxy for Gemini API",
+  "private": true
+}
