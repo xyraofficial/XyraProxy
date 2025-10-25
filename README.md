@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 # XyraChatAI
-=======
 
 # Gemini API Vercel Proxy
 
